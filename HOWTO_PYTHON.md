@@ -13,7 +13,7 @@ the location of the NumPy headers must be specified. To do so, search the filesy
 ```
 $ locate numpy/arrayobject.h
 ```
-On my installation the full path was
+Make sure to use a Python 2.7 installation here! On my installation the full path was
 ```
 /usr/lib/python2.7/dist-packages/numpy/core/include/numpy/arrayobject.h
 ```
@@ -29,6 +29,10 @@ The folder "python" in the repository contains some scripts showing how to use t
 There is also a script ```create_all_phantoms.py```, in the top-level folder, that will generate some point-scatterer phantoms that can be
 used as target when simulating scans. This script should be run first and it will put several .h5 phantom files in
 a folder called "generated_phantoms".
+
+Note that `create_all_phantoms.py` requires a Python environment with the numpy, scipy,
+h5py, and matplotlib packages installed. Use the included `Pipfile` in the repo's
+top-level folder to set up such an environment.
 
 As an example, the script ```linear_scan_phantom.py``` can be used to do a linear scan in the XZ-plane as follows, on a
 carotid plaque phantom.

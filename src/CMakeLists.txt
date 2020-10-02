@@ -31,7 +31,7 @@ cmake_dependent_option(BCSIM_BUILD_QT5_GUI "Build interactive Qt5 GUI" OFF
        
 include_directories(${PROJECT_SOURCE_DIR})
 
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS python27 numpy27)
 
 if (BCSIM_BUILD_UTILS OR BCSIM_BUILD_QT5_GUI)
     # Note: Prefer the new-style find_package() for HDF5 which creates imported targets.

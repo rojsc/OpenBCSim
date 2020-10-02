@@ -1,5 +1,5 @@
 # Handle Python include & libs
-find_package(PythonLibs REQUIRED)
+find_package(PythonLibs 2.7 REQUIRED)
 if (NOT PYTHONLIBS_FOUND)
     message("PYTHONLIBS NOT FOUND")
 endif ()
