@@ -26,7 +26,7 @@ def do_simulation(args):
     sim.set_parameter("verbose", "0")
 
     with h5py.File(args.h5_file, "r") as f:
-        scatterers_data = f["data"].value
+        scatterers_data = f["data"][()]
     sim.add_fixed_scatterers(scatterers_data)
     print "The number of scatterers is %d" % scatterers_data.shape[0]
 
