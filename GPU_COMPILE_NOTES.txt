@@ -6,10 +6,10 @@ the required DLLs, which must be done manually.
 
 ## GPU
 The cache variable CUDA_NVCC_FLAGS is used to define NVCC compilation flags.
-By default,it is set up for JIT (just-in-time) compilation for compute_30 
-(Kepler) and compute_50 (Maxwell). Currently, Kepler is the lowest supported
-architecture because of usage of grids with large x-dimensions. (If necessary,
-it should be easy to modify the code for older hardware).
+By default,it is set up for JIT (just-in-time) compilation for compute_60
+(Pascal). Currently, Kepler is the lowest supported architecture because of
+usage of grids with large x-dimensions. (If necessary, it should be easy to
+modify the code for older hardware).
 
 It is also possible to change this to compile for a specific combination of
 virtual and real architecture, e.g. for K4000M (Kepler, sm_30):
