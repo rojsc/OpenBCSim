@@ -1,6 +1,6 @@
 # Getting started with the simulator's Python interface
 These notes explain how to build the Python interface as well as how to use it.
-Tested on Arch Linux and Python 3.
+Tested on Arch Linux and Python 3.8.1.
 Prerequisites: a Python installation w/NumPy
 
 ## Building the simulator and the Python interface
