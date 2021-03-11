@@ -322,10 +322,17 @@ protected:
 
 };
 
+// In Python-3 numpy, import_array() expands to code that returns an int.
+// BOOST_PYTHON_MODULE expands to code that returns void, which is why we
+// need to wrap import_array() in this dummy function.
+int import_array_workaround() {
+    import_array();
+}
+
 BOOST_PYTHON_MODULE(pyrfsim) {
     using namespace boost::python;
 
-    import_array();
+    import_array_workaround();
 
     numpy_boost_python_register_type<float, 1>();
     numpy_boost_python_register_type<float, 2>();
