@@ -14,7 +14,7 @@ def verify_correct_path():
     dirs = [entry for entry in os.listdir('.') if os.path.isdir(entry)]
     if "phantom_scripts" in dirs and "phantom_data" in dirs: return
         
-    print "This script must be run from the project root directory."
+    print("This script must be run from the project root directory.")
     exit()
 
 def ensure_output_folder_exists():
@@ -282,6 +282,6 @@ if __name__ == '__main__':
     create_simple_phantom()
     create_tissue_flow_phantom()
     create_spinning_disk_phantom()
-    print 'NOTE: This is the last script and may take a while to finish...'
+    print('NOTE: This is the last script and may take a while to finish...')
     create_artery_phantom()
     

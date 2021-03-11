@@ -27,18 +27,18 @@ if __name__ == "__main__":
     with h5py.File(args.h5_file, "r") as f:
         # load the fixed dataset if exists
         if "data" in f:
-            scatterers_data = f["data"].value
-            print "Configuring %d fixed scatterers" % scatterers_data.shape[0]
+            scatterers_data = f["data"][:]
+            print("Configuring %d fixed scatterers" % scatterers_data.shape[0])
             sim_cpu.add_fixed_scatterers(scatterers_data)
             sim_gpu.add_fixed_scatterers(scatterers_data)
         
         # load the spline dataset if exists
         if "spline_degree" in f:
-            amplitudes     = f["amplitudes"].value
-            control_points = f["control_points"].value
-            knot_vector    = f["knot_vector"].value    
-            spline_degree  = f["spline_degree"].value
-            print "Configuring %d spline scatterers" % control_points.shape[0]
+            amplitudes     = f["amplitudes"][:]
+            control_points = f["control_points"][:]
+            knot_vector    = f["knot_vector"][:]
+            spline_degree  = f["spline_degree"][()]
+            print("Configuring %d spline scatterers" % control_points.shape[0])
             sim_cpu.add_spline_scatterers(spline_degree, knot_vector, control_points, amplitudes)
             sim_gpu.add_spline_scatterers(spline_degree, knot_vector, control_points, amplitudes)
     
@@ -75,9 +75,9 @@ if __name__ == "__main__":
     sim_cpu.set_analytical_beam_profile(1e-3, 1e-3)
     sim_gpu.set_analytical_beam_profile(1e-3, 1e-3)
 
-    print "Simulating on CPU..."
+    print("Simulating on CPU...")
     rf_lines_cpu = sim_cpu.simulate_lines()
-    print "Simulating on GPU..."
+    print("Simulating on GPU...")
     rf_lines_gpu = sim_gpu.simulate_lines()
     
     num_samples, num_lines = rf_lines_cpu.shape
@@ -113,6 +113,6 @@ if __name__ == "__main__":
         plt.title("Difference")
         
         plt.draw()
-        if raw_input("Press enter") == "q": exit()
+        if input("Press enter") == "q": exit()
         
         

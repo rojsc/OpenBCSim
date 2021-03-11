@@ -19,16 +19,16 @@ def do_simulation(args):
         sim = RfSimulator("gpu")
         sim.set_parameter("gpu_device", "%d"%args.device_no)
         gpu_name = sim.get_parameter("cur_device_name")
-        print "Using device %d: %s" % (args.device_no, gpu_name)
+        print("Using device %d: %s" % (args.device_no, gpu_name))
     else:
         sim = RfSimulator("cpu")
 
     sim.set_parameter("verbose", "0")
 
     with h5py.File(args.h5_file, "r") as f:
-        scatterers_data = f["data"].value
+        scatterers_data = f["data"][:]
     sim.add_fixed_scatterers(scatterers_data)
-    print "The number of scatterers is %d" % scatterers_data.shape[0]
+    print("The number of scatterers is %d" % scatterers_data.shape[0])
 
     # configure simulation parameters
     sim.set_parameter("sound_speed", "1540.0")
@@ -71,9 +71,9 @@ def do_simulation(args):
         with h5py.File(args.save_simdata_file, "w") as f:
             f["sim_data_real"] = np.array(np.real(iq_lines), dtype="float32")
             f["sim_data_imag"] = np.array(np.imag(iq_lines), dtype="float32")
-        print "Simulation output written to %s" % args.save_simdata_file
+        print("Simulation output written to %s" % args.save_simdata_file)
         
-    print "Simulation time: %f +- %f s  (N=%d)" % (np.mean(frame_sim_times), np.std(frame_sim_times), args.num_frames)    
+    print("Simulation time: %f +- %f s  (N=%d)" % (np.mean(frame_sim_times), np.std(frame_sim_times), args.num_frames))    
 
     if args.pdf_file != "" and not args.visualize:
         import matplotlib as mpl
@@ -83,13 +83,13 @@ def do_simulation(args):
         num_samples, num_lines = iq_lines.shape
         plt.figure(1, figsize=(18,9))
         plt.subplot(1,2,1)
-        plt.plot(np.real(iq_lines[:, num_lines/2]))
+        plt.plot(np.real(iq_lines[:, num_lines//2]))
         plt.title("Middle RF line")
         plt.subplot(1,2,2)
         plt.imshow(np.real(abs(iq_lines)), aspect="auto", interpolation="nearest")
         if args.pdf_file != "":
             plt.savefig(args.pdf_file)
-            print "Image written to disk."
+            print("Image written to disk.")
     if args.visualize:
         plt.show()
 

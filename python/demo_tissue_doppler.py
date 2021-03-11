@@ -22,7 +22,7 @@ def simulate_doppler_frame(args, timestamp, sim, origin):
     Create scan sequence for one frame where all RF-lines have the same
     timestamp.
     """
-    print "Timestamp is %f" % timestamp
+    print("Timestamp is %f" % timestamp)
     origins      = np.empty((args.num_lines, 3), dtype="float32")
     directions   = np.empty((args.num_lines, 3), dtype="float32")
     lateral_dirs = np.empty((args.num_lines, 3), dtype="float32")
@@ -63,12 +63,12 @@ if __name__ == "__main__":
     origin = np.array([0.0, 0.0, -5e-3])  # beam origin
     
     with h5py.File(args.scatterer_file, "r") as f:
-        control_points = f["control_points"].value
-        amplitudes     = f["amplitudes"].value
-        knot_vector    = f["knot_vector"].value
-        spline_degree  = f["spline_degree"].value
+        control_points = f["control_points"][:]
+        amplitudes     = f["amplitudes"][:]
+        knot_vector    = f["knot_vector"][:]
+        spline_degree  = f["spline_degree"][()]
     num_cs = control_points.shape[1]
-    print "Loaded spline phantom with %d control points" % num_cs
+    print("Loaded spline phantom with %d control points" % num_cs)
     
     # create and configure
     sim = RfSimulator("gpu")
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     sim.set_analytical_beam_profile(args.sigma_lateral, args.sigma_elevational)
 
     # set spline scatterers
-    sim.add_spline_scatterers(spline_degree, knot_vector, control_points, amplitudes)
+    sim.add_spline_scatterers(int(spline_degree), knot_vector, control_points, amplitudes)
     
     # simulate one packet
     iq_frames = []

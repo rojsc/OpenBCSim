@@ -46,14 +46,14 @@ def reconfigure_scatterers(sim, h5_phantom):
     total_num = 0
     with h5py.File(h5_phantom, "r") as f:
         if "data" in f:
-            scatterers_data = f["data"].value
+            scatterers_data = f["data"][:]
             sim.add_fixed_scatterers(scatterers_data)
             total_num += scatterers_data.shape[0]
         if "control_points" in f:
-            amplitudes     = f["amplitudes"].value
-            control_points = f["control_points"].value
-            knot_vector    = f["knot_vector"].value
-            spline_degree  = int(f["spline_degree"].value)
+            amplitudes     = f["amplitudes"][:]
+            control_points = f["control_points"][:]
+            knot_vector    = f["knot_vector"][:]
+            spline_degree  = int(f["spline_degree"][()])
             sim.add_spline_scatterers(spline_degree, knot_vector, control_points, amplitudes)
             total_num += control_points.shape[0]
     return total_num
@@ -80,7 +80,7 @@ def simulate_with_timing(sim, num_rep, png_file=None):
     
 def ns_per_scatterer(frame_times, num_scatterers, num_lines):
     """ Return mean, std sim time in ns per scatterer per line """
-    ns_per_scatterer = map(lambda time_sec: 1e9*time_sec/(num_lines*num_scatterers), frame_times)
+    ns_per_scatterer = [1e9*time_sec/(num_lines*num_scatterers) for time_sec in frame_times]
     ns_mean = np.mean(ns_per_scatterer)
     ns_std  = np.std(ns_per_scatterer)
     return ns_mean, ns_std
@@ -91,7 +91,7 @@ class ResultBuffer(object):
         
     def add_msg(self, msg):
         self.lines.append("%s\n"%msg)
-        print "*** %s" % msg
+        print("*** %s" % msg)
     
     def write(self, out_file):
         with open(out_file, "w") as f:

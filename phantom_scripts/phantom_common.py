@@ -14,8 +14,8 @@ def load_scale_function(h5_file):
     scale_fn:   Scaling function taking time as input
     """
     with h5py.File(h5_file, 'r') as f:
-        times   = f["times"].value
-        factors = f["factors"].value
+        times   = f["times"][:]
+        factors = f["factors"][:]
         
     from scipy.interpolate import interp1d
     scale_fn = interp1d(times, factors)
