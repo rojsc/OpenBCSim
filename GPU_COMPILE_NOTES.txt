@@ -24,3 +24,8 @@ NOTE: The flags in the CMake cache variable CUDA_NVCC_FLAGS must be delimited
 with semicolons.
 
 The flag -use_fast_math is also added by default.
+
+## CUDA host compiler
+Make sure that the used C++ compiler fits to the used CUDA version. If the
+default C++ compiler doesn't match, use cmake's CUDA_HOST_COMPILER variable to
+set the correct C++ compiler.

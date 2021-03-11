@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cuda.h>
 #include <cufft.h>
-#include <math_functions.h> // for sincosf()
+#include <cuda_runtime_api.h> // for sincosf()
 #include <cuComplex.h> // for cuCmulf()
 #include "cuda_helpers.h"
 #include "device_launch_parameters.h" // for removing annoying MSVC intellisense error messages

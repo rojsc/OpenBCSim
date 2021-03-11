@@ -151,4 +151,4 @@ private:
 };
 
 }   // end namespace
-#endif BCSIM_ENABLE_CUDA
+#endif // BCSIM_ENABLE_CUDA
